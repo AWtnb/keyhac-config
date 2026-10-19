@@ -30,7 +30,6 @@ SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
         r"${USERPROFILE}\Personal\portable_apps\cfiler\cfiler.exe",
     ),
     "U1-P": LaunchEntry("SumatraPDF.exe", None),
-    "U1-E": LaunchEntry("smoothcsv-app.exe", None),
     "LC-U1-M": LaunchEntry(
         "Mery.exe",
         r"${LOCALAPPDATA}\Programs\Mery\Mery.exe",
@@ -50,6 +49,7 @@ MULTI_KEY_MAPPING: dict[str, LaunchEntry] = {
         "chrome.exe",
         r"C:\Program Files\Google\Chrome\Application\chrome.exe",
     ),
+    "Comma": LaunchEntry("smoothcsv-app.exe", None),
     "S": LaunchEntry(
         "slack.exe",
         r"${LOCALAPPDATA}\slack\slack.exe",
@@ -112,4 +112,4 @@ def bind(keymap, kt) -> None:
         def on_chosen(self, candidate, _):
             candidate.payload.activate()
 
-    kt["U1-Tab"] = ShowCandidates([ChooserPage("Windows", [OpenWindows()])])
+    kt["U1-E"] = ShowCandidates([ChooserPage("Windows", [OpenWindows()])])
