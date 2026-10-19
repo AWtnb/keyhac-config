@@ -94,10 +94,19 @@ def bind(keymap, kt) -> None:
         name = "Window"
 
         def candidates(self):
+            wnd = keymap.get_active_window()
+
+            def _is_candidate(w) -> bool:
+                if not w.title:
+                    return False
+                if wnd is None:
+                    return True
+                return wnd.title != w.title
+
             return [
                 Candidate(display=f"{w.app_name} - {w.title}", payload=w)
                 for w in keymap.list_windows()
-                if w.title
+                if _is_candidate(w)
             ]
 
         def on_chosen(self, candidate, _):
