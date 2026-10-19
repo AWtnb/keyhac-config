@@ -26,50 +26,45 @@ class LaunchEntry(NamedTuple):
 
 SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
     "U1-F": LaunchEntry(
-        "cfiler.exe",
+        "cfiler",
         r"${USERPROFILE}\Personal\portable_apps\cfiler\cfiler.exe",
     ),
-    "U1-P": LaunchEntry("SumatraPDF.exe", None),
+    "U1-P": LaunchEntry("SumatraPDF", None),
     "LC-U1-M": LaunchEntry(
-        "Mery.exe",
+        "Mery",
         r"${LOCALAPPDATA}\Programs\Mery\Mery.exe",
     ),
     "LC-U1-N": LaunchEntry(
-        "notepad.exe",
+        "notepad",
         r"C:\Windows\System32\notepad.exe",
     ),
     "LC-AtMark": LaunchEntry(
-        "wezterm-gui.exe",
+        "wezterm-gui",
         r"${USERPROFILE}\scoop\apps\wezterm\current\wezterm-gui.exe",
     ),
 }
 
 MULTI_KEY_MAPPING: dict[str, LaunchEntry] = {
     "C": LaunchEntry(
-        "chrome.exe",
+        "chrome",
         r"C:\Program Files\Google\Chrome\Application\chrome.exe",
     ),
-    "Comma": LaunchEntry("smoothcsv-app.exe", None),
+    "Comma": LaunchEntry("smoothcsv-app", None),
     "S": LaunchEntry(
-        "slack.exe",
+        "slack",
         r"${LOCALAPPDATA}\slack\slack.exe",
     ),
     "F": LaunchEntry(
-        "firefox.exe",
+        "firefox",
         r"C:\Program Files\Mozilla Firefox\firefox.exe",
     ),
     "B": LaunchEntry(
-        "thunderbird.exe",
+        "thunderbird",
         r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe",
     ),
-    "P": LaunchEntry("SumatraPDF.exe", None),
-    "E": LaunchEntry("EXCEL.EXE", None),
-    "W": LaunchEntry("WINWORD.EXE", None),
-    "M": LaunchEntry(
-        "Mery.exe",
-        r"${LOCALAPPDATA}\Programs\Mery\Mery.exe",
-    ),
-    "X": LaunchEntry("explorer.exe", None),
+    "P": LaunchEntry("SumatraPDF", None),
+    "E": LaunchEntry("EXCEL", None),
+    "W": LaunchEntry("WINWORD", None),
 }
 
 if (code_path := shutil.which("code")) is not None:
