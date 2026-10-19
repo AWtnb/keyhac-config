@@ -59,8 +59,6 @@ def bind(keymap, kt) -> None:
         "U0-Comma": ("Comma",),
         "U0-Period": ("Period",),
         "S-U0-Enter": ("U-Shift", "Period"),
-        "U0-Tab": ("Period", "BackSlash"),
-        "U1-Tab": ("Period", "Period", "BackSlash"),
         "S-U0-8": ("U-Shift", "Minus", "Space", ime.SKKKey.toggle_vk),
         "U1-1": ("1.", "Space", ime.SKKKey.toggle_vk),
         "S-U0-SemiColon": ("U-Shift", "SemiColon"),

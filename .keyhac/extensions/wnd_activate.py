@@ -3,7 +3,13 @@ import shutil
 from pathlib import Path
 from typing import NamedTuple
 
-from keyhac import ActivateApplication  # ty: ignore[unresolved-import]
+from keyhac import (  # ty: ignore[unresolved-import]
+    ActivateApplication,
+    Candidate,
+    CandidateSource,
+    ChooserPage,
+    ShowCandidates,
+)
 from libs.system_browser import get_browser_path
 
 
@@ -83,3 +89,18 @@ def bind(keymap, kt) -> None:
         kt_second_key[key] = ActivateApplication(**entry.as_params())
 
     kt["U1-C"] = kt_second_key
+
+    class OpenWindows(CandidateSource):
+        name = "Window"
+
+        def candidates(self):
+            return [
+                Candidate(display=f"{w.app_name} - {w.title}", payload=w)
+                for w in keymap.list_windows()
+                if w.title
+            ]
+
+        def on_chosen(self, candidate, _):
+            candidate.payload.activate()
+
+    kt["U1-Tab"] = ShowCandidates([ChooserPage("Windows", [OpenWindows()])])
