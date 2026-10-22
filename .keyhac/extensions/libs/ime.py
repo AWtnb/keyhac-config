@@ -49,8 +49,10 @@ def turnon_skk() -> bool:
 
 def turnoff_skk() -> bool:
     status = get_status()
+    if status is None:
+        return False
     if status:
-        _send_ime_sequence(SKKKey.toggle_vk)
+        return set_status(False)
     return True
 
 
