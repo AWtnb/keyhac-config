@@ -12,6 +12,7 @@ from .misc import (
     insert_blank_line,
     invoke_comment_remover,
     mdtable_from_tsv,
+    remove_duplicate_lines,
     remove_whitespace,
     skip_blank_line,
     split_postalcode,
@@ -72,6 +73,7 @@ CLIPBOARD_FORMAT_COMMANDS: dict[str, Callable[[str], str]] = {
     "remove whitespaces": remove_whitespace,
     "remove javascript comment line": invoke_comment_remover("// "),
     "remove python comment line": invoke_comment_remover("# "),
+    "remove duplicate lines": remove_duplicate_lines,
 }
 
 

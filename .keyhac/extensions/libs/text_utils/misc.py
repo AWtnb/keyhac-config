@@ -253,3 +253,13 @@ def mdtable_from_tsv(s: str) -> str:
     for line in lines[1:]:
         table.append(_join(_split(line)))
     return "\n".join(table)
+
+
+def remove_duplicate_lines(s: str) -> str:
+    seen = set()
+    lines = []
+    for line in s.splitlines():
+        if line not in seen:
+            seen.add(line)
+            lines.append(line)
+    return "\n".join(lines)
