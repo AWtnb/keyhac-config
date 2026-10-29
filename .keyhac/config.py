@@ -1,12 +1,5 @@
-import clipboard  # ty: ignore[unresolved-import]
-import core  # ty: ignore[unresolved-import]
-import ime  # ty: ignore[unresolved-import]
+import features  # ty: ignore[unresolved-import]
 import keytables  # ty: ignore[unresolved-import]
-import mouse_cursor  # ty: ignore[unresolved-import]
-import sender  # ty: ignore[unresolved-import]
-import web_search  # ty: ignore[unresolved-import]
-import wnd_activate  # ty: ignore[unresolved-import]
-import wnd_snap  # ty: ignore[unresolved-import]
 
 
 def configure(keymap) -> None:
@@ -26,17 +19,7 @@ def configure(keymap) -> None:
 
     # key bingings for every window
     kt_global = keymap.define_keytable(focus_path_pattern="*")
-    for module in [
-        core,
-        clipboard,
-        ime,
-        sender,
-        mouse_cursor,
-        web_search,
-        wnd_activate,
-        wnd_snap,
-    ]:
-        module.bind(keymap, kt_global)
+    features.setup(keymap, kt_global)
 
     # key bingings for specific app window
     keytables.setup(keymap)
