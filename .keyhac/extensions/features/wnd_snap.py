@@ -2,8 +2,6 @@ from keyhac import SnapWindow  # ty: ignore[unresolved-import]
 
 
 def bind(keymap, kt) -> None:
-    kt["U1-H"] = "LWin-Left"
-    kt["U1-L"] = "LWin-Right"
 
     kt_snap = keymap.define_keytable(name="Snap active window")
     kt_snap["U0-L"] = "LWin-Shift-Right"
@@ -96,3 +94,5 @@ def bind(keymap, kt) -> None:
         kt_snap[f"U1-{key}"] = WindowHalfResizer(direction)
 
     kt["U1-M"] = kt_snap
+    kt["U1-H"] = "Win-Left"
+    kt["U1-L"] = "Win-Right"

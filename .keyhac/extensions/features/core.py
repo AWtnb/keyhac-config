@@ -93,6 +93,9 @@ def bind(keymap, kt) -> None:
 
     class LazyReload(ThreadedAction):
         def run(self) -> None:
+            time.sleep(0.25)
+
+        def finished(self, _) -> None:
             keymap.configure()
 
     kt["U1-F12"] = LazyReload()
