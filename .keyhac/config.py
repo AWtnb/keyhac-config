@@ -1,20 +1,12 @@
 import clipboard  # ty: ignore[unresolved-import]
 import core  # ty: ignore[unresolved-import]
 import ime  # ty: ignore[unresolved-import]
+import keytables  # ty: ignore[unresolved-import]
 import mouse_cursor  # ty: ignore[unresolved-import]
 import sender  # ty: ignore[unresolved-import]
 import web_search  # ty: ignore[unresolved-import]
 import wnd_activate  # ty: ignore[unresolved-import]
 import wnd_snap  # ty: ignore[unresolved-import]
-from keytables import (  # ty: ignore[unresolved-import]
-    browser,
-    excel,
-    mery,
-    slack,
-    smoothcsv,
-    sumatra_pdf,
-    vscode,
-)
 
 
 def configure(keymap) -> None:
@@ -47,13 +39,4 @@ def configure(keymap) -> None:
         module.bind(keymap, kt_global)
 
     # key bingings for specific app window
-    for kt in [
-        browser,
-        mery,
-        slack,
-        smoothcsv,
-        sumatra_pdf,
-        vscode,
-        excel,
-    ]:
-        kt.bind(keymap)
+    keytables.setup(keymap)

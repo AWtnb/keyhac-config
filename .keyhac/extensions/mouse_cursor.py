@@ -1,4 +1,4 @@
-from libs import mouse_cursor
+from lib import mouse_cursor
 
 
 def bind(keymap, kt) -> None:

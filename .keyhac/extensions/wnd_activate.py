@@ -10,7 +10,7 @@ from keyhac import (  # ty: ignore[unresolved-import]
     ChooserPage,
     ShowCandidates,
 )
-from libs.system_browser import get_browser_path
+from lib.system_browser import get_browser_path
 
 
 class LaunchEntry(NamedTuple):

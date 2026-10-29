@@ -1,9 +1,9 @@
 import webbrowser
 
 from keyhac import ShowClipboardTools  # ty: ignore[unresolved-import]
-from libs import clipboard
-from libs.text_utils.commands import CLIPBOARD_FORMAT_COMMANDS
-from libs.text_utils.misc import (
+from lib import clipboard
+from lib.text_utils.commands import CLIPBOARD_FORMAT_COMMANDS
+from lib.text_utils.misc import (
     as_single_quoted_line,
     make_str_cleaner,
     simple_quote,

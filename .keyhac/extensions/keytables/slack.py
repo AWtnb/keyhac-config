@@ -1,4 +1,4 @@
-from libs import ime, sender
+from lib import ime, sender
 
 
 def bind(keymap) -> None:

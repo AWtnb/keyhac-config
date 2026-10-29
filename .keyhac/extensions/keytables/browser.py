@@ -1,6 +1,6 @@
 from keyhac import ThreadedAction  # ty: ignore[unresolved-import]
-from libs import ime, sender
-from libs._common import delay
+from lib import ime, sender
+from lib._common import delay
 
 
 def bind(keymap) -> None:

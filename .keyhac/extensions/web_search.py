@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import NamedTuple
 
 from keyhac import ActivateApplication, ThreadedAction  # ty: ignore[unresolved-import]
-from libs import clipboard
-from libs._common import delay, is_same_app
-from libs.system_browser import get_browser_path
-from libs.web_search import cleanup_web_search_query
+from lib import clipboard
+from lib._common import delay, is_same_app
+from lib.system_browser import get_browser_path
+from lib.web_search import cleanup_web_search_query
 
 REG_HIRAGANA = re.compile(r"[\u3041-\u3093]")
 REG_SPACES = re.compile(r"[ 　]+")
