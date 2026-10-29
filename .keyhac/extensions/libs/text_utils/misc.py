@@ -69,12 +69,12 @@ QUOTE_MARK = "> "
 
 def simple_quote(s: str) -> str:
     lines = s.strip().splitlines()
-    return "\n".join([QUOTE_MARK + line for line in lines]) + "\n"
+    return "\n".join([QUOTE_MARK + line for line in lines])
 
 
 def as_single_quoted_line(s: str) -> str:
     lines = s.strip().splitlines()
-    return QUOTE_MARK + "".join([line.strip() for line in lines]) + "\n"
+    return QUOTE_MARK + "".join([line.strip() for line in lines])
 
 
 def invoke_comment_remover(symbol: str) -> Callable[[str], str]:
