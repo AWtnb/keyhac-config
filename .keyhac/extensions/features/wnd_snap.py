@@ -94,5 +94,6 @@ def bind(keymap, kt) -> None:
         kt_snap[f"U1-{key}"] = WindowHalfResizer(direction)
 
     kt["U1-M"] = kt_snap
-    kt["U1-H"] = "Win-Left"
-    kt["U1-L"] = "Win-Right"
+
+    kt["U1-H"] = SnapWindow(position="left")
+    kt["U1-L"] = SnapWindow(position="right")
