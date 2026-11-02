@@ -263,11 +263,3 @@ def remove_duplicate_lines(s: str) -> str:
             seen.add(line)
             lines.append(line)
     return "\n".join(lines)
-
-
-def to_slash(s: str) -> str:
-    return s.replace("\\", "/")
-
-
-def to_backslash(s: str) -> str:
-    return s.replace("/", "//")
