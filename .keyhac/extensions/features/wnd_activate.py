@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from typing import NamedTuple
 
@@ -20,47 +21,43 @@ class LaunchEntry(NamedTuple):
     def as_params(self) -> dict:
         params = {"app": self.app}
         if self.launch is not None:
-            params["launch"] = os.path.expandvars(self.launch)
+            params["launch"] = os.path.expanduser(self.launch)
         return params
 
 
 SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
-    "U1-F": LaunchEntry(
-        "cfiler",
-        r"${USERPROFILE}\Personal\portable_apps\cfiler\cfiler.exe",
-    ),
     "U1-P": LaunchEntry("SumatraPDF", None),
     "LC-U1-M": LaunchEntry(
         "Mery",
-        r"${LOCALAPPDATA}\Programs\Mery\Mery.exe",
+        "~/AppData/Local/Programs/Mery/Mery.exe",
     ),
     "LC-U1-N": LaunchEntry(
         "notepad",
-        r"C:\Windows\System32\notepad.exe",
+        "C:/Windows/System32/notepad.exe",
     ),
     "LC-AtMark": LaunchEntry(
         "wezterm-gui",
-        r"${USERPROFILE}\scoop\apps\wezterm\current\wezterm-gui.exe",
+        "~/scoop/apps/wezterm/current/wezterm-gui.exe",
     ),
 }
 
 MULTI_KEY_MAPPING: dict[str, LaunchEntry] = {
     "C": LaunchEntry(
         "chrome",
-        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        "C:/Program Files/Google/Chrome/Application/chrome.exe",
     ),
     "Comma": LaunchEntry("smoothcsv-app", None),
     "S": LaunchEntry(
         "slack",
-        r"${LOCALAPPDATA}\slack\slack.exe",
+        "~/AppData/Local/slack/slack.exe",
     ),
     "F": LaunchEntry(
         "firefox",
-        r"C:\Program Files\Mozilla Firefox\firefox.exe",
+        "C:/Program Files/Mozilla Firefox/firefox.exe",
     ),
     "B": LaunchEntry(
         "thunderbird",
-        r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe",
+        "C:/Program Files (x86)/Mozilla Thunderbird/thunderbird.exe",
     ),
     "P": LaunchEntry("SumatraPDF", None),
     "E": LaunchEntry("EXCEL", None),
@@ -75,6 +72,24 @@ if (browser_path := get_browser_path()) is not None:
 
 
 def bind(keymap, kt) -> None:
+
+    def _xefm() -> None:
+        target = None
+        for w in keymap.list_windows():
+            if not w.title:
+                continue
+            if w.title == "XeFM":
+                target = w
+                break
+        if target is not None:
+            target.activate()
+            return
+
+        subprocess.Popen(
+            ["xefm", "--backend", "gui"], creationflags=subprocess.CREATE_NO_WINDOW
+        )
+
+    kt["U1-F"] = _xefm
 
     for key, entry in SINGLE_KEY_MAPPING.items():
         kt[key] = ActivateApplication(**entry.as_params())
