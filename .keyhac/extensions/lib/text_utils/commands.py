@@ -18,6 +18,7 @@ from .misc import (
     split_postalcode,
     swap_abbreviation,
     swap_tabs,
+    to_backslash,
     to_double_bracket,
     to_full_brackets,
     to_full_letter,
@@ -27,6 +28,7 @@ from .misc import (
     to_half_symbol,
     to_list,
     to_single_bracket,
+    to_slash,
     trim_honorific,
     trim_space_on_line_head,
 )
@@ -74,6 +76,8 @@ CLIPBOARD_FORMAT_COMMANDS: dict[str, Callable[[str], str]] = {
     "remove javascript comment line": invoke_comment_remover("// "),
     "remove python comment line": invoke_comment_remover("# "),
     "remove duplicate lines": remove_duplicate_lines,
+    "to shash": to_slash,
+    "to backshash": to_backslash,
 }
 
 
