@@ -1,6 +1,5 @@
 import os
 import shutil
-import subprocess
 from pathlib import Path
 from typing import NamedTuple
 
@@ -26,6 +25,7 @@ class LaunchEntry(NamedTuple):
 
 
 SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
+    "U1-F": LaunchEntry("xefm", "xefm"),
     "U1-P": LaunchEntry("SumatraPDF", None),
     "LC-U1-M": LaunchEntry(
         "Mery",
@@ -72,25 +72,6 @@ if (browser_path := get_browser_path()) is not None:
 
 
 def bind(keymap, kt) -> None:
-
-    def _xefm() -> None:
-        target = None
-        for w in keymap.list_windows():
-            if not w.title:
-                continue
-            if w.title == "XeFM":
-                target = w
-                break
-        if target is not None:
-            target.activate()
-            return
-
-        subprocess.Popen(
-            ["xefm", "--backend", "gui"], creationflags=subprocess.CREATE_NO_WINDOW
-        )
-
-    kt["U1-F"] = _xefm
-
     for key, entry in SINGLE_KEY_MAPPING.items():
         kt[key] = ActivateApplication(**entry.as_params())
 
