@@ -1,5 +1,7 @@
+import json
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from typing import NamedTuple
 
@@ -25,7 +27,6 @@ class LaunchEntry(NamedTuple):
 
 
 SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
-    "U1-F": LaunchEntry("xefm", "xefm"),
     "U1-P": LaunchEntry("SumatraPDF", None),
     "LC-U1-M": LaunchEntry(
         "Mery",
@@ -40,6 +41,36 @@ SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
         "~/scoop/apps/wezterm/current/wezterm-gui.exe",
     ),
 }
+
+
+def _store_app_location_of(app_name: str) -> str | None:
+    command = (
+        f"Get-AppxPackage -Name '{app_name}' "
+        "| Select-Object Name, InstallLocation "
+        "| ConvertTo-Json -Compress"
+    )
+    result = subprocess.run(
+        ["powershell", "-NoProfile", "-Command", command],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        creationflags=subprocess.CREATE_NO_WINDOW,
+        check=True,
+    )
+    output = result.stdout.strip()
+    if not output:
+        return None
+
+    data = json.loads(output)
+    packages = [data] if isinstance(data, dict) else data
+    return packages[0]["InstallLocation"]
+
+
+if (xefm_path := _store_app_location_of("craftware.XeFM")) is not None:
+    SINGLE_KEY_MAPPING["U1-F"] = LaunchEntry(
+        "xefm", os.path.join(xefm_path, "XeFM.exe")
+    )
+
 
 MULTI_KEY_MAPPING: dict[str, LaunchEntry] = {
     "C": LaunchEntry(
