@@ -87,6 +87,8 @@ def _build_replacer(search: str, replace_to: str) -> Callable[[str], str]:
 
 
 for menu, args in {
+    "to double-quotation": ("'", '"'),
+    "to single-quotation": ('"', "'"),
     "to slash": (r"\\", "/"),
     "to backslash": ("/", r"\\"),
     "escape backslash": (r"\\", r"\\\\"),
