@@ -27,6 +27,7 @@ class LaunchEntry(NamedTuple):
 
 
 SINGLE_KEY_MAPPING: dict[str, LaunchEntry] = {
+    "U1-F": LaunchEntry("XeFM", "XeFM"),
     "U1-P": LaunchEntry("SumatraPDF", None),
     "LC-U1-M": LaunchEntry(
         "Mery",
@@ -64,12 +65,6 @@ def _store_app_location_of(app_name: str) -> str | None:
     data = json.loads(output)
     packages = [data] if isinstance(data, dict) else data
     return packages[0]["InstallLocation"]
-
-
-if (xefm_path := _store_app_location_of("craftware.XeFM")) is not None:
-    SINGLE_KEY_MAPPING["U1-F"] = LaunchEntry(
-        "xefm", os.path.join(xefm_path, "XeFM.exe")
-    )
 
 
 MULTI_KEY_MAPPING: dict[str, LaunchEntry] = {
