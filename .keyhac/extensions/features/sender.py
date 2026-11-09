@@ -9,18 +9,18 @@ def bind(keymap, kt) -> None:
     kt["U1-4"] = base_sender.under_convmode("S-4", "Tab")
     kt["U0-P"] = base_sender.under_kanamode("・")
 
-    kt["Yen"] = sender.SendThen(ime.turnoff_skk, ["Yen"])
+    kt["Yen"] = sender.SendThen(ime.disable_ime, ["Yen"])
     kt["U0-AtMark"] = sender.SendThen(
-        ime.turnoff_skk, ["LS-AtMark", "LS-AtMark", "Left"]
+        ime.disable_ime, ["LS-AtMark", "LS-AtMark", "Left"]
     )
     kt["U0-5"] = sender.SendThen(
-        ime.turnoff_skk, ["S-7", "S-5", "S-5", "S-7", "Left", "Left"]
+        ime.disable_ime, ["S-7", "S-5", "S-5", "S-7", "Left", "Left"]
     )
 
     # select-to-left with ime control
-    kt["U1-B"] = sender.SendThen(ime.turnon_skk, ["S-Left"])
-    kt["LS-U1-B"] = sender.SendThen(ime.turnon_skk, ["S-Right"])
-    kt["U1-Space"] = sender.SendThen(ime.turnon_skk, ["C-S-Left"])
+    kt["U1-B"] = sender.SendThen(ime.enable_ime, ["S-Left"])
+    kt["LS-U1-B"] = sender.SendThen(ime.enable_ime, ["S-Right"])
+    kt["U1-Space"] = sender.SendThen(ime.enable_ime, ["C-S-Left"])
 
     for key, symbol in {
         "S-U0-Colon": "\uff1a",  # FULLWIDTH COLON

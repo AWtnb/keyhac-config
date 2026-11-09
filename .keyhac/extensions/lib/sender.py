@@ -53,7 +53,7 @@ class SKKSender:
         return sender
 
     def without_mode(self, *sequence: str) -> CallbackFunc:
-        sender = self.invoke(ime_tool.turnoff_skk, *sequence)
+        sender = self.invoke(ime_tool.disable_ime, *sequence)
         return sender
 
 
@@ -81,4 +81,4 @@ class DirectSender:
 
     def invoke(self, *sequence: str) -> CallbackFunc:
         seq = list(sequence)
-        return self.skk.invoke(ime_tool.turnoff_skk, *seq)
+        return self.skk.invoke(ime_tool.disable_ime, *seq)

@@ -8,11 +8,11 @@ def bind(keymap, kt) -> None:
         "U0-F7": ime_tool.to_skk_kata,
         "U0-O": ime_tool.to_skk_half_kata,
         "U0-F8": ime_tool.to_skk_half_kata,
-        "U0-F": ime_tool.turnoff_skk,
+        "U0-F": ime_tool.disable_ime,
         "LS-U0-F": ime_tool.to_skk_kana,
         "S-U1-J": ime_tool.to_skk_latin,
         "U1-I": ime_tool.reconvert_with_skk,
-        "D-O-(236)": ime_tool.to_skk_abbrev,
+        "O-(236)": ime_tool.to_skk_abbrev,
         "U1-U": ime_tool.start_skk_conv_suffix,
     }.items():
         kt[key] = func

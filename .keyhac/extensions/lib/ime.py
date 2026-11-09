@@ -28,17 +28,7 @@ class SKKKey(StrEnum):
     affix = "S-Period"
 
 
-def _send_ime_sequence(*seq: str):
-    """
-    IMEを有効にしてキー入力でSKKを初期化する
-    """
-    with keymap.get_input_context() as ctx:
-        ctx.send_key(SKKKey.kana)
-        for key in seq:
-            ctx.send_key(key)
-
-
-def turnon_skk() -> bool:
+def enable_ime() -> bool:
     status = get_status()
     if status is None:
         return False
@@ -47,7 +37,7 @@ def turnon_skk() -> bool:
     return set_status(True)
 
 
-def turnoff_skk() -> bool:
+def disable_ime() -> bool:
     status = get_status()
     if status is None:
         return False
@@ -56,64 +46,49 @@ def turnoff_skk() -> bool:
     return True
 
 
-def to_skk_kana() -> bool:
-    if turnon_skk():
-        _send_ime_sequence()
+def _send_ime_sequence(*seq: str) -> bool:
+    """
+    IMEを有効にしてキー入力でSKKを初期化する
+    """
+    if enable_ime():
+        with keymap.get_input_context() as ctx:
+            for key in (SKKKey.kana, *seq):
+                ctx.send_key(key)
         return True
     return False
+
+
+def to_skk_kana() -> bool:
+    return _send_ime_sequence()
 
 
 def to_skk_latin() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.latin)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.latin)
 
 
 def to_skk_abbrev() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.abbrev)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.abbrev)
 
 
 def to_skk_kata() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.kata)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.kata)
 
 
 def to_skk_half_kata() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.halfkata)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.halfkata)
 
 
 def to_skk_full_latin() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.jlatin)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.jlatin)
 
 
 def start_skk_conv() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.convpoint)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.convpoint)
 
 
 def start_skk_conv_suffix() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.convpoint, SKKKey.affix)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.convpoint, SKKKey.affix)
 
 
 def reconvert_with_skk() -> bool:
-    if turnon_skk():
-        _send_ime_sequence(SKKKey.reconv, SKKKey.cancel)
-        return True
-    return False
+    return _send_ime_sequence(SKKKey.reconv, SKKKey.cancel)

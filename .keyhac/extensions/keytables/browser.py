@@ -13,7 +13,7 @@ def bind(keymap) -> None:
 
     for k in ["F", "K", "L"]:
         key = f"LC-{k}"
-        kt[key] = sender.SendThen(ime.turnoff_skk, [key], 40)
+        kt[key] = sender.SendThen(ime.disable_ime, [key], 40)
 
     class LazyBookmark(ThreadedAction):
         def run(self):

@@ -25,4 +25,4 @@ def bind(keymap) -> None:
         "C-S-Enter",
         "S-Enter",
     ]:
-        kt[key] = sender.SendThen(ime.turnoff_skk, [key])
+        kt[key] = sender.SendThen(ime.disable_ime, [key])
