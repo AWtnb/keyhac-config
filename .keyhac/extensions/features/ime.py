@@ -12,7 +12,7 @@ def bind(keymap, kt) -> None:
         "LS-U0-F": ime_tool.to_skk_kana,
         "S-U1-J": ime_tool.to_skk_latin,
         "U1-I": ime_tool.reconvert_with_skk,
-        "O-(236)": ime_tool.to_skk_abbrev,
+        "D-O-(236)": ime_tool.to_skk_abbrev,
         "U1-U": ime_tool.start_skk_conv_suffix,
     }.items():
         kt[key] = func
