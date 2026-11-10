@@ -41,9 +41,20 @@ def bind(keymap, kt) -> None:
     )
 
     # paste as code
-    kt["U0-C-AtMark"] = clipboard.Paste(None, lambda s: f"`{s.strip()}`")
+    def _as_code(s: str) -> str:
+        code = s.strip()
+        backtick = "`"
+        if code.startswith(backtick) and code.endswith(backtick):
+            return code
+        return f"{backtick}{code}{backtick}"
+
+    kt["U0-C-AtMark"] = clipboard.Paste(None, _as_code)
 
     def _as_codeblock(s: str) -> str:
+        border = "```"
+        if s.strip().startswith(border) and s.strip().endswith(border):
+            return s
+
         code = s.rstrip()
         lines = list(reversed(code.splitlines()))
         while lines:
@@ -51,7 +62,7 @@ def bind(keymap, kt) -> None:
             if line.strip():
                 lines.append(line)
                 break
-        return f"\n\n```\n{'\n'.join(reversed(lines))}\n```\n\n"
+        return f"\n\n{border}\n{'\n'.join(reversed(lines))}\n{border}\n\n"
 
     kt["U0-S-AtMark"] = clipboard.Paste(None, _as_codeblock)
 
