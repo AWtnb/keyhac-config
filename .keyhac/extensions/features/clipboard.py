@@ -35,9 +35,9 @@ def bind(keymap, kt) -> None:
     kt["U1-V"] = bind_cleanup_paster("V")
 
     # paste with quote mark
-    kt["U1-Q"] = clipboard.Paste(format_func=lambda s: simple_quote(s) + "\n\n")
+    kt["U1-Q"] = clipboard.Paste(format_func=lambda s: "\n" + simple_quote(s) + "\n\n")
     kt["LC-U1-Q"] = clipboard.Paste(
-        format_func=lambda s: as_single_quoted_line(s) + "\n\n"
+        format_func=lambda s: "\n" + as_single_quoted_line(s) + "\n\n"
     )
 
     # paste as code
