@@ -22,20 +22,38 @@ def bind(keymap, kt) -> None:
     kt_snap["X"] = maximize
 
     class SnapToScreen:
-        def __init__(self, screen_frame: tuple[int, int, int, int]) -> None:
-            self.target_frame = screen_frame
+        def __init__(self, screen_index: int) -> None:
+            self._screen_index = screen_index
 
         def __call__(self) -> None:
             active_wnd = keymap.get_active_window()
             if active_wnd is None:
                 return
+
+            screen_frames = keymap.screen_work_frames()
+            try:
+                target_frame = screen_frames[self._screen_index]
+            except IndexError:
+                return
+
             if active_wnd.is_maximized():
                 active_wnd.restore()
-            active_wnd.set_frame(*self.target_frame)
 
-    SCREEN_FRAMES = keymap.screen_work_frames()
-    for i, frame in enumerate(SCREEN_FRAMES):
-        kt_snap[str(i)] = SnapToScreen(frame)
+            current = active_wnd.get_frame()
+            if current is None:
+                return
+
+            sx, sy, sw, sh = target_frame
+            _, _, ww, wh = current
+            x = sx + (sw - ww) / 2
+            y = sy + (sh - wh) / 2
+            if not active_wnd.set_frame(x, y):
+                return
+
+            active_wnd.maximize()
+
+    for i in (0, 1, 2):
+        kt_snap[str(i)] = SnapToScreen(i)
 
     for mod, ratio in {
         "": 1 / 2,
