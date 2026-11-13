@@ -20,9 +20,7 @@ def bind(keymap) -> None:
             sender.send_keys("C-S-F")
 
         def run(self):
-            delay(100)
-
-        def finished(self, _):
+            delay(160)
             sender.send_keys("C-A")
 
     kt["LC-LS-F"] = LazyFilter()
